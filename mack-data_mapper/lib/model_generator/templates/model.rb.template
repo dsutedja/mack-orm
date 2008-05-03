@@ -1,0 +1,11 @@
+class <%= param(:name).singular.camelcase %>
+  include DataMapper::Persistence
+  
+<% 
+for column in columns
+-%>
+  property :<%= column.column_name %>, :<%= column.column_type %>
+<%
+end
+-%>
+end

@@ -1,0 +1,4 @@
+class Album
+  include DataMapper::Persistence
+  
+end

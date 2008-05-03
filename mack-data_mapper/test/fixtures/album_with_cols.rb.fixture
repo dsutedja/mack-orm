@@ -1,0 +1,7 @@
+class Album
+  include DataMapper::Persistence
+  
+  property :title, :string
+  property :artist_id, :integer
+  property :description, :text
+end

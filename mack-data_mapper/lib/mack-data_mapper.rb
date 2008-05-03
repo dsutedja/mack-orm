@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'genosaurus'
 require 'erubis'
+begin
+  require 'mack-orm_common'
+rescue Exception => e
+end
 
 gem("datamapper", "0.3.2")
 require 'data_mapper'
@@ -29,4 +33,4 @@ end
 [:helpers, :migration_generator, :model_generator, :scaffold_generator].each do |folder|
   Dir.glob(File.join(File.dirname(__FILE__), folder.to_s, "**/*.rb")).each {|f| require f}
 end
-# Dir.glob(File.join(File.dirname(__FILE__), "tasks", "**/*.rake")).each {|f| load f}
+# Dir.glob(File.join(File.dirname(__FILE__), "tasks", "**/*.rake")).each {|f| load f} 

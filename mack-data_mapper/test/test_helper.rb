@@ -7,8 +7,10 @@ Object::MACK_CONFIG = File.dirname(__FILE__) unless Object.const_defined?("MACK_
 Object::MACK_ROOT = $genosaurus_output_directory unless Object.const_defined?("MACK_ROOT")
 Object::MACK_APP = File.join($genosaurus_output_directory, "app") unless Object.const_defined?("MACK_APP")
 Object::MACK_ENV = "test" unless Object.const_defined?("MACK_ENV")
+Object::MACK_VIEWS = File.join(MACK_APP, "views") unless Object.const_defined?("MACK_VIEWS")
 
 require File.join(File.dirname(__FILE__), "..", "lib", "mack-data_mapper")
+require File.join(File.dirname(__FILE__), "..", "..", "mack-orm_common", "lib", "mack-orm_common")
 
 
 load File.join(File.dirname(__FILE__), "lib", "user.rb")
@@ -43,8 +45,19 @@ class Test::Unit::TestCase
     File.join($genosaurus_output_directory, "app", "models")
   end
   
-  def fixture_path(name)
-    File.join(File.dirname(__FILE__), "fixtures", name + ".fixture")
+  def test_directory
+    File.join($genosaurus_output_directory, "test")
+  end
+  
+  def fixture_path(*name)
+    path = [File.dirname(__FILE__), "fixtures"]
+    path << name
+    path.flatten!
+    File.join(path) + ".fixture"
+  end
+  
+  def fixture(*name)
+    File.open(fixture_path(name)).read
   end
   
 end

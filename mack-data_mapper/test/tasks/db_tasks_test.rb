@@ -4,34 +4,34 @@ class DbTasksTest < Test::Unit::TestCase
   
   $current_rake_task = File.join(File.dirname(__FILE__), "..", "..", "lib", "tasks", "db_tasks.rake")
   
-  # def test_db_rollback
-  #   test_db_migrate
-  #   si = SchemaInfo.first
-  #   assert_equal 2, si.version
-  #   assert_equal 1, User.count
-  #   rake_task("db:rollback")
-  #   si = SchemaInfo.first
-  #   assert_equal 1, si.version
-  #   assert_equal 0, User.count
-  # end
-  # 
-  # def test_db_rollback_two_steps
-  #   test_db_migrate
-  #   si = SchemaInfo.first
-  #   assert_equal 2, si.version
-  #   rake_task("db:rollback", "STEP" => "2")
-  #   si = SchemaInfo.first
-  #   assert_equal 0, si.version
-  #   assert !User.table.exists?
-  # end
-  # 
-  # def test_db_rollback_unrun_migrations
-  #   test_db_migrate
-  #   MigrationGenerator.run("name" => "create_comments")
-  #   si = SchemaInfo.first
-  #   assert_equal 2, si.version
-  #   assert_raise(Mack::Errors::UnrunMigrations) { rake_task("db:rollback") }
-  # end
+  def test_db_rollback
+    test_db_migrate
+    si = SchemaInfo.first
+    assert_equal 2, si.version
+    assert_equal 1, User.count
+    rake_task("db:rollback")
+    si = SchemaInfo.first
+    assert_equal 1, si.version
+    assert_equal 0, User.count
+  end
+  
+  def test_db_rollback_two_steps
+    test_db_migrate
+    si = SchemaInfo.first
+    assert_equal 2, si.version
+    rake_task("db:rollback", "STEP" => "2")
+    si = SchemaInfo.first
+    assert_equal 0, si.version
+    assert !User.table.exists?
+  end
+  
+  def test_db_rollback_unrun_migrations
+    test_db_migrate
+    MigrationGenerator.run("name" => "create_comments")
+    si = SchemaInfo.first
+    assert_equal 2, si.version
+    assert_raise(Mack::Errors::UnrunMigrations) { rake_task("db:rollback") }
+  end
 
   def test_db_migrate
     assert !SchemaInfo.table.exists?

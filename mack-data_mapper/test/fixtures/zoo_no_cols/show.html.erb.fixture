@@ -1,0 +1,6 @@
+<p>
+  <h1>Zoo</h1>
+</p>
+
+<%= link_to("Edit", zoos_edit_url(:id => @zoo.id)) %> |
+<%= link_to("Back", zoos_index_url) %>

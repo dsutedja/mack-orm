@@ -35,6 +35,7 @@ class Test::Unit::TestCase
     [$genosaurus_output_directory, migrations_directory, models_directory].each do |d|
       FileUtils.mkdir_p(d)
     end
+    FileUtils.cp(fixture_path("routes.rb"), File.join(MACK_CONFIG, "routes.rb"))
   end
   
   def migrations_directory

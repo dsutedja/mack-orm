@@ -12,7 +12,6 @@ require File.join(File.dirname(__FILE__), "..", "lib", "mack-data_mapper")
 
 
 load File.join(File.dirname(__FILE__), "lib", "user.rb")
-load File.join(File.dirname(__FILE__), "lib", "post.rb")
 
 class Test::Unit::TestCase
   
@@ -30,6 +29,7 @@ class Test::Unit::TestCase
   end
   
   def setup
+    database.adapter.flush_connections!
     [$genosaurus_output_directory, migrations_directory, models_directory].each do |d|
       FileUtils.mkdir_p(d)
     end

@@ -10,7 +10,7 @@ require 'rubygems/gem_runner'
 
 spec = Gem::Specification.new do |s|
   s.name = "mack-data_mapper"
-  s.version = "0.5.1"
+  s.version = "0.4.7.110"
   s.summary = "DataMapper ORM support for Mack"
   s.description = "mack-data_mapper was developed by: markbates"
   s.author = "markbates"

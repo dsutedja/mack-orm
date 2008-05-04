@@ -37,7 +37,7 @@ spec = Gem::Specification.new do |s|
   #s.required_ruby_version = ">= 1.8.6"
   #s.requirements << "An ice cold beer."
   #s.requirements << "Some free time!"
-  s.rubyforge_project = "mack-sequel"
+  s.rubyforge_project = "magrathea"
 end
 
 # rake package

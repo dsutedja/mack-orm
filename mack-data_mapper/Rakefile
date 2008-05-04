@@ -10,7 +10,7 @@ require 'rubygems/gem_runner'
 
 spec = Gem::Specification.new do |s|
   s.name = "mack-data_mapper"
-  s.version = "0.5.0"
+  s.version = "0.5.1"
   s.summary = "DataMapper ORM support for Mack"
   s.description = "mack-data_mapper was developed by: markbates"
   s.author = "markbates"
@@ -30,6 +30,7 @@ spec = Gem::Specification.new do |s|
   #s.default_executable = ""
   #s.add_dependency("", "")
   s.add_dependency("mack-orm_common", s.version)
+  s.add_dependency("datamapper", "0.3.2")
   #s.extensions << ""
   #s.extra_rdoc_files = ["README"]
   s.has_rdoc = true

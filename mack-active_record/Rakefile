@@ -10,7 +10,7 @@ require 'rubygems/gem_runner'
 
 spec = Gem::Specification.new do |s|
   s.name = "mack-active_record"
-  s.version = "0.5.0"
+  s.version = "0.5.1"
   s.summary = "ActiveRecord ORM support for Mack"
   s.description = "mack-active_record was developed by: markbates"
   s.author = "markbates"
@@ -29,6 +29,7 @@ spec = Gem::Specification.new do |s|
   #s.executables << "mack-active_record"
   #s.default_executable = ""
   s.add_dependency("mack-orm_common", s.version)
+  s.add_dependency("activerecord", ">=2.0.2")
   #s.add_dependency("", "")
   #s.extensions << ""
   #s.extra_rdoc_files = ["README"]

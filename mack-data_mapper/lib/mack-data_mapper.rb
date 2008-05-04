@@ -9,7 +9,7 @@ end
 gem("datamapper", "0.3.2")
 require 'data_mapper'
 
-dbs = YAML::load(Erubis::Eruby.new(IO.read(File.join(MACK_CONFIG, "database.yml"))).result)
+dbs = Mack::Configuration.database_configurations
 
 unless dbs.nil?
   settings = dbs[MACK_ENV]

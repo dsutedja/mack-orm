@@ -4,11 +4,12 @@ require 'erubis'
 begin
   require 'mack-orm_common'
 rescue Exception => e
+  puts e
 end
 
 require 'activerecord'
 
-dbs = YAML::load(Erubis::Eruby.new(IO.read(File.join(MACK_CONFIG, "database.yml"))).result)
+dbs = Mack::Configuration.database_configurations
 
 unless dbs.nil?
   ActiveRecord::Base.establish_connection(dbs[MACK_ENV])

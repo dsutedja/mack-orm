@@ -1,0 +1,11 @@
+<h1>Edit Zoo</h1>
+
+<%= error_messages_for :zoo %>
+
+<% form(zoos_update_url(:id => @zoo.id), :class => "edit_zoo", :id => "edit_zoo", :method => :put) do %>
+  <p>
+    <input id="zoo_submit" name="commit" type="submit" value="Update" />
+  </p>
+<% end %>
+
+<%= link_to("Back", zoos_index_url) %>

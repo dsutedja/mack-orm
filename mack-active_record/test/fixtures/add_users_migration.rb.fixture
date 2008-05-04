@@ -1,0 +1,9 @@
+class AddUsers < ActiveRecord::Migration
+  def self.up
+    User.create(:username => "markbates", :email => "mark@mackframework.com")
+  end
+
+  def self.down
+    User.delete_all
+  end
+end

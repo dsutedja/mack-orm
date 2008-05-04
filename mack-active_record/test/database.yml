@@ -1,0 +1,3 @@
+test:
+  adapter: sqlite3
+  database: <%= File.join(MACK_ROOT, "mack-active_record_test.db") %>

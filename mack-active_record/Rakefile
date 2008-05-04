@@ -10,8 +10,8 @@ require 'rubygems/gem_runner'
 
 spec = Gem::Specification.new do |s|
   s.name = "mack-active_record"
-  s.version = "0.0.1"
-  s.summary = "mack-active_record"
+  s.version = "0.5.0"
+  s.summary = "ActiveRecord ORM support for Mack"
   s.description = "mack-active_record was developed by: markbates"
   s.author = "markbates"
   #s.email = ""
@@ -19,7 +19,7 @@ spec = Gem::Specification.new do |s|
 
   s.test_files = FileList['test/**/*']
 
-  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*', 'bin/**/*.*']
+  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
   
   # This has been removed in RubyGems in 1.0, so I would STRONGLY recommend not using it!
@@ -28,11 +28,11 @@ spec = Gem::Specification.new do |s|
   #s.bindir = "bin"
   #s.executables << "mack-active_record"
   #s.default_executable = ""
-  #s.add_dependency("", "")
+  s.add_dependency("mack-orm_common", s.version)
   #s.add_dependency("", "")
   #s.extensions << ""
   #s.extra_rdoc_files = ["README"]
-  #s.has_rdoc = true
+  s.has_rdoc = true
   #s.platform = "Gem::Platform::Ruby"
   #s.required_ruby_version = ">= 1.8.6"
   #s.requirements << "An ice cold beer."

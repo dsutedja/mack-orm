@@ -5,23 +5,21 @@ namespace :db do
     drop_create_database
   end
   
-  desc "Creates your Full environment. Does NOT create your production database!"
-  task :create_all => :environment do
-    drop_create_database("development")
-    drop_create_database("test")
-    ActiveRecord::Base.establish_connection(Mack::Configuration.database_configurations["development"])
-    Rake::Task["db:migrate"].invoke
+  namespace :create do
+    
+    desc "Creates your Full environment. Does NOT create your production database!"
+    task :all => :environment do
+      drop_create_database("development")
+      drop_create_database("test")
+      ActiveRecord::Base.establish_connection(Mack::Configuration.database_configurations["development"])
+      Rake::Task["db:migrate"].invoke
+    end
+    
   end
-  
-  # desc "Returns the current schema version"
-  # task :version => :environment do
-  #   puts "Current version: " << ActiveRecord::Migrator.current_version.to_s
-  # end 
-  
+
 end
 
 private
-
 def drop_create_database(env = MACK_ENV)
   abcs = Mack::Configuration.database_configurations
   case abcs[env]["adapter"]

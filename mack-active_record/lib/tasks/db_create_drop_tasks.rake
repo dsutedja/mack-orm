@@ -22,7 +22,8 @@ end
 private
 def drop_create_database(env = MACK_ENV)
   abcs = Mack::Configuration.database_configurations
-  case abcs[env]["adapter"]
+  db_settings = abcs[env]
+  case db_settings["adapter"]
     when "mysql"
       ActiveRecord::Base.establish_connection(
         :adapter => "mysql",
@@ -31,8 +32,17 @@ def drop_create_database(env = MACK_ENV)
         :username => ENV["DB_USERNAME"] || "root",
         :password => ENV["DB_PASSWORD"] || ""
       )
+      
+      if options[:collation]
+        execute "CREATE DATABASE `#{name}` DEFAULT CHARACTER SET `#{options[:charset] || 'utf8'}` COLLATE `#{options[:collation]}`"
+      else
+        execute "CREATE DATABASE `#{name}` DEFAULT CHARACTER SET `#{options[:charset] || 'utf8'}`"
+      end
+
+      execute "DROP DATABASE IF EXISTS `#{name}`"
+      
       begin
-        ActiveRecord::Base.connection.recreate_database(abcs[env]["database"])
+        ActiveRecord::Base.connection.recreate_database(db_settings["database"])
       rescue Exception => e
       end
       begin
@@ -40,24 +50,24 @@ def drop_create_database(env = MACK_ENV)
       rescue Exception => e
       end
     when "postgresql"
-      ENV['PGHOST']     = abcs[env]["host"] if abcs[env]["host"]
-      ENV['PGPORT']     = abcs[env]["port"].to_s if abcs[env]["port"]
-      ENV['PGPASSWORD'] = abcs[env]["password"].to_s if abcs[env]["password"]
-      enc_option = "-E #{abcs[env]["encoding"]}" if abcs[env]["encoding"]
+      ENV['PGHOST']     = db_settings["host"] if db_settings["host"]
+      ENV['PGPORT']     = db_settings["port"].to_s if db_settings["port"]
+      ENV['PGPASSWORD'] = db_settings["password"].to_s if db_settings["password"]
+      enc_option = "-E #{db_settings["encoding"]}" if db_settings["encoding"]
 
       ActiveRecord::Base.clear_active_connections!
       begin
-        puts `dropdb -U "#{abcs[env]["username"]}" #{abcs[env]["database"]}`
+        puts `dropdb -U "#{db_settings["username"]}" #{db_settings["database"]}`
       rescue Exception => e
       end
       
       begin
-        puts `createdb #{enc_option} -U "#{abcs[env]["username"]}" #{abcs[env]["database"]}`
+        puts `createdb #{enc_option} -U "#{db_settings["username"]}" #{db_settings["database"]}`
       rescue Exception => e
       end
     when 'sqlite3'
-      FileUtils.rm_rf(abcs[env]["database"])
+      FileUtils.rm_rf(db_settings["database"])
     else
-      raise "Task not supported by '#{abcs[env]["adapter"]}'"
+      raise "Task not supported by '#{db_settings["adapter"]}'"
   end
 end
